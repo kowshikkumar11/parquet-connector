@@ -1,0 +1,68 @@
+
+publishing to exchange
+
+1. build section should contsin below
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.mule.tools.maven</groupId>
+				<artifactId>exchange-mule-maven-plugin</artifactId>
+				<version>0.0.13</version>
+				<executions>
+					<execution>
+						<id>validate</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>exchange-pre-deploy</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>deploy</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>exchange-deploy</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	
+	
+2. repository and plugin repo should be there in pom
+
+	<repositories>
+		<repository>
+			<id>anypoint-exchange-v3</id>
+			<name>Anypoint Exchange V3</name>
+			<url>https://maven.anypoint.mulesoft.com/api/v3/maven</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>mulesoft-releases</id>
+			<name>mulesoft release repository</name>
+			<layout>default</layout>
+			<url>https://repository.mulesoft.org/releases/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+	
+3. right click on project --> Anypoint Platform -> publish to exchange
+
+consuming published spec
+
+1. <dependency>
+	  <groupId>0130a482-1c9c-4290-a183-ad53c5491f16</groupId>
+	  <artifactId>parquet-custom-connector</artifactId>
+	  <version>1.0.17</version>
+	  <classifier>mule-plugin</classifier>
+	</dependency>
+	
+	add above dependency in pom of specific project.
+2. open in terminal and mvn clean install
+2. https://github.com/djuang1/parquet/issues/1 if you face jdk.tools:jdk.tools:jar is missing error
